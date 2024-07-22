@@ -10,7 +10,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(${PROJECT_NAME} main.cpp
         map.cpp
-        map.h)
+        map.h
+        ItemBase.cpp
+        ItemBase.h
+        sword.cpp
+        sword.h)
 
 # Add config.h.in file
 configure_file(config.h.in config.h)

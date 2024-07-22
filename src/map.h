@@ -12,7 +12,7 @@
 #include <random>
 #include <queue>
 
-enum TileType {Traversable, Blocked, Beginning, End};
+enum TileType {Traversable, Blocked, Beginning, End, TreasureChest};
 
 struct Node {
     int x, y;

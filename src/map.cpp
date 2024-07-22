@@ -150,8 +150,12 @@ void map::drawMap(int screenWidth, int screenHeight) {
                     DrawRectangleRec(tileRect, BLUE);
                     break;
                 case TileType::End:
+                    DrawRectangleRec(tileRect, PURPLE);
+                    break;
+                case TileType::TreasureChest:
                     DrawRectangleRec(tileRect, GOLD);
                     break;
+
             }
             //DrawRectangleLinesEx(tileRect, 1, BLACK); //macht Grid um die einzelnen Tiles
         }
