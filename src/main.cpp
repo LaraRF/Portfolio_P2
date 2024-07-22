@@ -18,13 +18,13 @@ int main() {
 #endif
 
     // Your own initialization code here
-    // ...
-    // ...
+
     RenderTexture2D canvas = LoadRenderTexture(Game::ScreenWidth, Game::ScreenHeight);
     float renderScale{}; // this and the line below are relevant to drawing later.
     Rectangle renderRec{};
 
-    auto Map = new map (nullptr);
+    map mapgenerator;
+    mapgenerator.generateMap();
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -40,10 +40,6 @@ int main() {
         }
         // Updates that are made by frame are coded here
         // This is where YOUR logic code should go
-        // ...
-        // ...
-
-        Map->update();
 
         BeginDrawing();
         // You can draw on the screen between BeginDrawing() and EndDrawing()
@@ -51,7 +47,10 @@ int main() {
         BeginTextureMode(canvas);
         { //Within this block is where we draw our app to the canvas and YOUR code goes.
             ClearBackground(WHITE);
-            Map->draw();
+            mapgenerator.drawMap(Game::ScreenWidth, Game::ScreenHeight);
+            if (IsKeyPressed(KEY_R)) {
+                mapgenerator.generateMap();
+            }
         }
         EndTextureMode();
         //The following lines put the canvas in the middle of the window and have the negative as black
@@ -77,8 +76,6 @@ int main() {
     } // Main game loop end
 
     // De-initialization here
-    // ...
-    // ...
 
     // Close window and OpenGL context
     CloseWindow();
