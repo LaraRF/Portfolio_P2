@@ -2,8 +2,10 @@
 // Created by lrfri on 09.07.2024.
 //
 
-#include <queue>
 #include "map.h"
+#include <queue>
+#include <algorithm>
+#include <unordered_set>
 
 map::map() : randomnumbergenerator(std::random_device{}()) {}
 
@@ -28,50 +30,91 @@ void map::addObstacles() {
     }
 }
 
-bool map::isValidMove(int x, int y) {
+bool map::isValidMove(int x, int y)const {
     return x >= 0 && x < mapsize && y >= 0 && y < mapsize && Map[y][x] != TileType::Blocked;
 }
 
-bool map::findPath() {
-    std::vector<std::vector<bool>> visited(mapsize, std::vector<bool>(mapsize, false));
-    std::queue<std::pair<int, int>> q;
+bool map::findPathAStar() {
+    std::vector<std::vector<Node*>> nodes(mapsize, std::vector<Node*>(mapsize, nullptr));
+    std::priority_queue<Node*, std::vector<Node*>, CompareNode> openSet;
+    std::unordered_set<Node*> openSetHash;
 
-    // Find start position
-    int startX, startY;
+    // Find start and end positions
+    int startX, startY, endX, endY;
     for (int i = 0; i < mapsize; ++i) {
         if (Map[mapsize - 1][i] == TileType::Beginning) {
             startX = i;
             startY = mapsize - 1;
-            break;
+        }
+        if (Map[0][i] == TileType::End) {
+            endX = i;
+            endY = 0;
         }
     }
-    q.push({startX, startY});
-    visited[startY][startX] = true;
+
+    // Create start node and add to open set
+    Node* startNode = new Node(startX, startY);
+    startNode->h = calculateHeuristic(startX, startY, endX, endY);
+    openSet.push(startNode);
+    openSetHash.insert(startNode);
+    nodes[startY][startX] = startNode;
 
     const int dx[] = {-1, 1, 0, 0};
     const int dy[] = {0, 0, -1, 1};
 
-    while (!q.empty()) {
-        int x = q.front().first;
-        int y = q.front().second;
-        q.pop();
+    while (!openSet.empty()) {
+        Node* current = openSet.top();
+        openSet.pop();
+        openSetHash.erase(current);
 
-        if (Map[y][x] == TileType::End) {
+        if (current->x == endX && current->y == endY) {
+            // Path found, clean up and return true
+            for (auto& row : nodes) {
+                for (auto& node : row) {
+                    delete node;
+                }
+            }
             return true;
         }
 
         for (int i = 0; i < 4; ++i) {
-            int newX = x + dx[i];
-            int newY = y + dy[i];
+            int newX = current->x + dx[i];
+            int newY = current->y + dy[i];
 
-            if (isValidMove(newX, newY) && !visited[newY][newX]) {
-                visited[newY][newX] = true;
-                q.push({newX, newY});
+            if (isValidMove(newX, newY)) {
+                int newG = current->g + 1;
+
+                Node* neighbor = nodes[newY][newX];
+                if (!neighbor) {
+                    neighbor = new Node(newX, newY);
+                    neighbor->h = calculateHeuristic(newX, newY, endX, endY);
+                    nodes[newY][newX] = neighbor;
+                }
+
+                if (newG < neighbor->g || neighbor->g == 0) {
+                    neighbor->parent = current;
+                    neighbor->g = newG;
+                    if (openSetHash.find(neighbor) == openSetHash.end()) {
+                        openSet.push(neighbor);
+                        openSetHash.insert(neighbor);
+                    }
+                }
             }
         }
     }
 
+    // No path found, clean up and return false
+    for (auto& row : nodes) {
+        for (auto& node : row) {
+            delete node;
+        }
+    }
     return false;
+}
+
+int map::calculateHeuristic(int x1, int y1, int x2, int y2) const {
+    // Manhattan distance
+    return std::abs(x1 - x2) + std::abs(y1 - y2);
 }
 
 void map::generateMap() {
@@ -79,7 +122,7 @@ void map::generateMap() {
         initializeMap();
         placeStartAndEnd();
         addObstacles();
-    } while (!findPath());
+    } while (!findPathAStar());
 }
 
 void map::drawMap(int screenWidth, int screenHeight) {
