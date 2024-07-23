@@ -9,7 +9,7 @@
 
 class shield :public ItemBase {
 public:
-    shield(float weight, const std::string& name, const std::string& description, int price, int strength);
+    shield(float weight, const std::string& name, const std::string& description, int price, int addedstrength);
 };
 
 

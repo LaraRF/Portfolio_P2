@@ -8,7 +8,7 @@
 
 class ring:public ItemBase {
 public:
-    ring(float weight, const std::string& name, const std::string& description, int price, int strength);
+    ring(float weight, const std::string& name, const std::string& description, int price, int addedstrength);
 };
 
 

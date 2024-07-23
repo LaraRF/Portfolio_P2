@@ -9,7 +9,7 @@
 
 class sword : public ItemBase {
 public:
-    sword(float weight, const std::string& name, const std::string& description, int price, int strength);
+    sword(float weight, const std::string& name, const std::string& description, int price, int addedstrength);
 };
 
 

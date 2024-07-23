@@ -3,5 +3,5 @@
 //
 
 #include "shield.h"
-shield::shield(float weight, const std::string& name, const std::string& description, int price, int strength)
-        : ItemBase(weight, name, description, price, strength) {}
+shield::shield(float weight, const std::string& name, const std::string& description, int price, int addedstrength)
+        : ItemBase(weight, name, description, price, addedstrength) {}

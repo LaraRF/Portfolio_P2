@@ -11,14 +11,14 @@
 class ItemBase {
 
 public:
-    ItemBase(float weight, const std::string& name, const std::string& description, int price, int strength);
+    ItemBase(float weight, const std::string& name, const std::string& description, int price, int addedstrength);
     virtual ~ItemBase() = default;
 
     float getWeight() const;
     const std::string& getName() const;
     const std::string& getDescription() const;
     int getPrice() const;
-    int getStrength() const;
+    int getaddedStrength() const;
 
     int x;
     int y;
@@ -28,7 +28,7 @@ private:
     std::string m_name;
     std::string m_description;
     int m_price;
-    int m_strength;
+    int m_addedstrength;
 };
 
 
