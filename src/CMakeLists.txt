@@ -14,7 +14,9 @@ add_executable(${PROJECT_NAME} main.cpp
         ItemBase.cpp
         ItemBase.h
         sword.cpp
-        sword.h)
+        sword.h
+        inventory.cpp
+        inventory.h)
 
 # Add config.h.in file
 configure_file(config.h.in config.h)
