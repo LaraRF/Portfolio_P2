@@ -1,10 +1,13 @@
 ﻿#include <cstdlib>
 #include <algorithm>
 #include <cmath>
+#include <iostream>
 #include "raylib.h"
 
 #include "config.h"
 #include "map.h"
+#include "PlayerChar.h"
+#include "Sword.h"
 
 int main() {
     // Raylib initialization
@@ -40,6 +43,13 @@ int main() {
         }
         // Updates that are made by frame are coded here
         // This is where YOUR logic code should go
+
+        // Create a player at position (0, 0) with base strength 10
+        PlayerChar player(0, 0, 10);
+
+        // Create a sword
+        //Sword* sword = new Sword(5.0f, "Steel Sword", "A sturdy steel sword", 100, 2);
+
 
         BeginDrawing();
         // You can draw on the screen between BeginDrawing() and EndDrawing()
