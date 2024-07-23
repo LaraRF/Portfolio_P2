@@ -8,6 +8,8 @@
 #include "map.h"
 #include "PlayerChar.h"
 #include "Sword.h"
+#include "Scene.h"
+#include "Startscreen.h"
 
 int main() {
     // Raylib initialization
@@ -26,8 +28,7 @@ int main() {
     float renderScale{}; // this and the line below are relevant to drawing later.
     Rectangle renderRec{};
 
-    map mapgenerator; //map = Klasse, mapgenerator = Instanz von Klasse
-    mapgenerator.generateMap(); //ruft Funktion auf, die Map erstellt
+    Scene* currentScene = new Startscreen();
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -44,23 +45,17 @@ int main() {
         // Updates that are made by frame are coded here
         // This is where YOUR logic code should go
 
-        // Create a player at position (0, 0) with base strength 10
-        PlayerChar player(0, 0, 10);
-
-        // Create a sword
-        //Sword* sword = new Sword(5.0f, "Steel Sword", "A sturdy steel sword", 100, 2);
-
+        //checks which screen is shown and calls the methods needed there
+        currentScene->update();
+        Scene* newScene = currentScene->evaluateSceneChange();
 
         BeginDrawing();
         // You can draw on the screen between BeginDrawing() and EndDrawing()
         // For the letterbox we draw on canvas instad
         BeginTextureMode(canvas);
         { //Within this block is where we draw our app to the canvas and YOUR code goes.
-            ClearBackground(WHITE);
-            mapgenerator.drawMap(Game::ScreenWidth, Game::ScreenHeight); //ruft Funkktion auf, die map drawt
-            if (IsKeyPressed(KEY_R)) { //wenn man R drückt, mach neue Map
-                mapgenerator.generateMap();
-            }
+            ClearBackground(BLACK);
+            currentScene->draw();
         }
         EndTextureMode();
         //The following lines put the canvas in the middle of the window and have the negative as black
@@ -83,6 +78,10 @@ int main() {
             DrawText(TextFormat("Render scale: %.0f", renderScale), 10, 10, 20, LIGHTGRAY);
         }
         EndDrawing();
+        if (currentScene != newScene){
+            delete currentScene;
+            currentScene = newScene;
+        }
     } // Main game loop end
 
     // De-initialization here

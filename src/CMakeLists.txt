@@ -26,7 +26,16 @@ add_executable(${PROJECT_NAME} main.cpp
         PlayerChar.cpp
         PlayerChar.h
         NPC.cpp
-        NPC.h)
+        NPC.h
+        Scene.cpp
+        Scene.h
+        Startscreen.cpp
+        Startscreen.h
+        Infoscreen.cpp
+        Infoscreen.h
+        Gameplay.cpp
+        Gameplay.h
+)
 
 # Add config.h.in file
 configure_file(config.h.in config.h)
