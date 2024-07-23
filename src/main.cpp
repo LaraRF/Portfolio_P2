@@ -23,8 +23,8 @@ int main() {
     float renderScale{}; // this and the line below are relevant to drawing later.
     Rectangle renderRec{};
 
-    map mapgenerator;
-    mapgenerator.generateMap();
+    map mapgenerator; //map = Klasse, mapgenerator = Instanz von Klasse
+    mapgenerator.generateMap(); //ruft Funktion auf, die Map erstellt
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
@@ -47,8 +47,8 @@ int main() {
         BeginTextureMode(canvas);
         { //Within this block is where we draw our app to the canvas and YOUR code goes.
             ClearBackground(WHITE);
-            mapgenerator.drawMap(Game::ScreenWidth, Game::ScreenHeight);
-            if (IsKeyPressed(KEY_R)) {
+            mapgenerator.drawMap(Game::ScreenWidth, Game::ScreenHeight); //ruft Funkktion auf, die map drawt
+            if (IsKeyPressed(KEY_R)) { //wenn man R drückt, mach neue Map
                 mapgenerator.generateMap();
             }
         }

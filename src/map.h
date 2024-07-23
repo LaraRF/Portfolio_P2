@@ -9,8 +9,10 @@
 #include <vector>
 #include "raylib.h"
 #include "config.h"
+#include "ItemBase.h"
 #include <random>
 #include <queue>
+#include <memory>
 
 enum TileType {Traversable, Blocked, Beginning, End, TreasureChest};
 
@@ -31,8 +33,7 @@ struct CompareNode {
 
 class map {
 protected:
-    int mapWidth{};
-    int mapHeight{};
+
     std::vector<int> tileMap;
 public:
     map();
@@ -41,9 +42,11 @@ public:
 
     const int mapsize=15;
     const int tilesize=32;
+    const int itemcount=5;
 
 private:
     std::vector<std::vector<TileType>> Map;
+    std::vector<std::unique_ptr<ItemBase>> items;
     std::mt19937 randomnumbergenerator;
 
     void initializeMap();
@@ -52,6 +55,8 @@ private:
     bool isValidMove(int x, int y) const;
     bool findPathAStar();
     int calculateHeuristic(int x1, int y1, int x2, int y2) const;
+    void spawnItems();
+    std::pair<int, int> findRandomTraversableTile();
 };
 
 

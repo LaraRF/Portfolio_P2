@@ -3,6 +3,7 @@
 //
 
 #include "map.h"
+#include "sword.h"
 #include <queue>
 #include <algorithm>
 #include <unordered_set>
@@ -123,6 +124,35 @@ void map::generateMap() {
         placeStartAndEnd();
         addObstacles();
     } while (!findPathAStar());
+
+    spawnItems();
+}
+
+void map::spawnItems() {
+    items.clear();
+    for (int i = 0; i < itemcount; ++i) {
+        auto [x, y] = findRandomTraversableTile();
+
+        items.push_back(std::make_unique<sword>("Sword " + std::to_string(i + 1), 5.0f, "A sharp sword", 100));
+
+        // Store the item's position (you might want to add x and y properties to ItemBase)
+        items.back()->x = x;
+        items.back()->y = y;
+    }
+}
+std::pair<int, int> map::findRandomTraversableTile() {
+    std::vector<std::pair<int, int>> traversableTiles;
+
+    for (int y = 0; y < mapsize; ++y) {
+        for (int x = 0; x < mapsize; ++x) {
+            if (Map[y][x] == TileType::Traversable) {
+                traversableTiles.emplace_back(x, y);
+            }
+        }
+    }
+
+    std::uniform_int_distribution<> dis(0, traversableTiles.size() - 1);
+    return traversableTiles[dis(randomnumbergenerator)];
 }
 
 void map::drawMap(int screenWidth, int screenHeight) {
@@ -159,5 +189,11 @@ void map::drawMap(int screenWidth, int screenHeight) {
             }
             //DrawRectangleLinesEx(tileRect, 1, BLACK); //macht Grid um die einzelnen Tiles
         }
+    }
+
+    for (const auto& sword : items) {
+        int x = sword->x * tilesize + (tilesize / 2);
+        int y = sword->y * tilesize + (tilesize / 2);
+        DrawCircle(x, y, tilesize / 4, BLACK);  // Draw swords as black circles
     }
 }
