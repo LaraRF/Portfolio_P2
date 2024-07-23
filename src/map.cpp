@@ -3,7 +3,7 @@
 //
 
 #include "map.h"
-#include "sword.h"
+#include "Sword.h"
 #include <queue>
 #include <algorithm>
 #include <unordered_set>
@@ -134,7 +134,7 @@ void map::spawnItems() {
     for (int i = 0; i < itemcount; ++i) {
         auto [x, y] = findRandomTraversableTile();
 
-        items.push_back(std::make_unique<sword>(2.5f, "Steel Sword", "A sharp steel sword", 100, 10));
+        items.push_back(std::make_unique<Sword>(2.5f, "Steel Sword", "A sharp steel Sword", 100, 10));
 
         // Store the item's position (you might want to add x and y properties to ItemBase)
         items.back()->x = x;

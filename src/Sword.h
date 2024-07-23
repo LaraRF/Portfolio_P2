@@ -7,9 +7,9 @@
 
 #include "ItemBase.h"
 
-class sword : public ItemBase {
+class Sword : public ItemBase {
 public:
-    sword(float weight, const std::string& name, const std::string& description, int price, int addedstrength);
+    Sword(float weight, const std::string& name, const std::string& description, int price, int addedstrength);
 };
 
 

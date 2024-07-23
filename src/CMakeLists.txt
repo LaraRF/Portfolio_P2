@@ -13,14 +13,20 @@ add_executable(${PROJECT_NAME} main.cpp
         map.h
         ItemBase.cpp
         ItemBase.h
-        sword.cpp
-        sword.h
-        inventory.cpp
-        inventory.h
-        ring.cpp
-        ring.h
-        shield.cpp
-        shield.h)
+        Sword.cpp
+        Sword.h
+        Inventory.cpp
+        Inventory.h
+        Ring.cpp
+        Ring.h
+        Shield.cpp
+        Shield.h
+        Character.cpp
+        Character.h
+        PlayerChar.cpp
+        PlayerChar.h
+        NPC.cpp
+        NPC.h)
 
 # Add config.h.in file
 configure_file(config.h.in config.h)

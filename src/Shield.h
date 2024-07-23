@@ -7,9 +7,9 @@
 
 #include "ItemBase.h"
 
-class shield :public ItemBase {
+class Shield : public ItemBase {
 public:
-    shield(float weight, const std::string& name, const std::string& description, int price, int addedstrength);
+    Shield(float weight, const std::string& name, const std::string& description, int price, int addedstrength);
 };
 
 

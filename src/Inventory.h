@@ -99,9 +99,9 @@ int Inventory<ContainerType>::getItemCount() const {
 template<typename ContainerType>
 bool Inventory<ContainerType>::equipItem(ItemBase* item) {
     int slot = -1;
-    if (dynamic_cast<sword*>(item)) slot = 0;
-    else if (dynamic_cast<ring*>(item)) slot = 1;
-    else if (dynamic_cast<shield*>(item)) slot = 2;
+    if (dynamic_cast<Sword*>(item)) slot = 0;
+    else if (dynamic_cast<Ring*>(item)) slot = 1;
+    else if (dynamic_cast<Shield*>(item)) slot = 2;
     else return false;
 
     if (m_equipmentSlots[slot]) return false;
