@@ -7,6 +7,7 @@
 #include <queue>
 #include <algorithm>
 #include <unordered_set>
+#include <iostream>
 
 map::map() : randomnumbergenerator(std::random_device{}()) {}
 
@@ -133,7 +134,7 @@ void map::spawnItems() {
     for (int i = 0; i < itemcount; ++i) {
         auto [x, y] = findRandomTraversableTile();
 
-        items.push_back(std::make_unique<sword>("Sword " + std::to_string(i + 1), 5.0f, "A sharp sword", 100));
+        items.push_back(std::make_unique<sword>(2.5f, "Steel Sword", "A sharp steel sword", 100, 10));
 
         // Store the item's position (you might want to add x and y properties to ItemBase)
         items.back()->x = x;

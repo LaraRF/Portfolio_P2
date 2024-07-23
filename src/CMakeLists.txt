@@ -16,7 +16,11 @@ add_executable(${PROJECT_NAME} main.cpp
         sword.cpp
         sword.h
         inventory.cpp
-        inventory.h)
+        inventory.h
+        ring.cpp
+        ring.h
+        shield.cpp
+        shield.h)
 
 # Add config.h.in file
 configure_file(config.h.in config.h)

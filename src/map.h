@@ -13,6 +13,9 @@
 #include <random>
 #include <queue>
 #include <memory>
+#include "ring.h"
+#include "shield.h"
+#include "sword.h"
 
 enum TileType {Traversable, Blocked, Beginning, End, TreasureChest};
 
@@ -43,6 +46,11 @@ public:
     const int mapsize=15;
     const int tilesize=32;
     const int itemcount=5;
+
+    //items
+    sword* Sword_1 = new sword(2.5f, "Steel Sword", "A sharp steel sword", 100, 10);
+    ring* Ring_1 = new ring(0.1f, "Gold Ring", "A shiny gold ring", 50, 5);
+    shield* Shield_1 = new shield(5.0f, "Iron Shield", "A sturdy iron shield", 75, 15);
 
 private:
     std::vector<std::vector<TileType>> Map;

@@ -10,27 +10,25 @@
 
 class ItemBase {
 
-protected:
-    float weight =1;
-    float price=0;
-    std::string name;
-    std::string description;
-
 public:
-    //Position on Map
+    ItemBase(float weight, const std::string& name, const std::string& description, int price, int strength);
+    virtual ~ItemBase() = default;
+
+    float getWeight() const;
+    const std::string& getName() const;
+    const std::string& getDescription() const;
+    int getPrice() const;
+    int getStrength() const;
+
     int x;
     int y;
 
-    ItemBase(const std::string& name, float weight, const std::string& description, int price)
-            : name(name), weight(weight), description(description), price(price), x(-1), y(-1) {}
-
-    virtual ~ItemBase() = default;
-
-    // Getters
-    std::string getName() const { return name; }
-    float getWeight() const { return weight; }
-    std::string getDescription() const { return description; }
-    int getPrice() const { return price; }
+private:
+    float m_weight;
+    std::string m_name;
+    std::string m_description;
+    int m_price;
+    int m_strength;
 };
 
 

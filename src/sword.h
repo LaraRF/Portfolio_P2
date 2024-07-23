@@ -8,11 +8,8 @@
 #include "ItemBase.h"
 
 class sword : public ItemBase {
-
 public:
-    sword(const std::string& name, float weight, const std::string& description, int price)
-            : ItemBase(name, weight, description, price) {}
-
+    sword(float weight, const std::string& name, const std::string& description, int price, int strength);
 };
 
 
